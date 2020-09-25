@@ -10,4 +10,8 @@
 #include <sys/shm.h>
 #include <errno.h>
 
-char * generate_fifoname (pid_t pid);
+char * GenerateFifoname (pid_t pid);
+int CheckPid (char* fifoname, pid_t pid);
+int OpenFile (const char* filename, int flags);
+void CreateFifo (const char* fifoname, mode_t mode);
+int CheckSelect (int fdread, int fdwrite, int fdexe);
