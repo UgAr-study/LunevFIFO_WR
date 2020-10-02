@@ -25,12 +25,22 @@ int main() {
 
     //sleep(3);
 
+    char checkpoint;
+    for (int i = 0; i < 2; ++i) {
+        if (read(fd_from, &checkpoint, sizeof(char)) == sizeof(char))
+            break;
+        if (i == 1) {
+            printf ("writer is not ready for too long\n");
+            exit(EXIT_FAILURE);
+        }
+        sleep(1);
+    }
 
-    int check_sp_fifo = CheckSelect(fd_from, -1, -1);
+    /*int check_sp_fifo = CheckSelect(fd_from, -1, -1);
     if  (check_sp_fifo < 0) {
         printf ("the writer is not ready for too long\n");
         exit (EXIT_FAILURE);
-    }
+    } */
     fcntl(fd_from, F_SETFL, O_RDONLY);
     while ((splice_ret_val = splice(fd_from, NULL,
                                     STDOUT_FILENO, NULL,

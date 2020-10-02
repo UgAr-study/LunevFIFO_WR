@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     CreateFifo(send_pid_fifo, 0666);
 
     fd_receive_pid = OpenFile(send_pid_fifo, O_RDONLY);
-    sleep(5);
+    //sleep(5);
     int read_ret_val;
     if ((read_ret_val = read (fd_receive_pid, &key, sizeof(pid_t))) <= 0) {
         printf ("writer don't has a pair\n");
@@ -36,6 +36,14 @@ int main(int argc, char* argv[]) {
 
     fd_in = OpenFile(text_fifo, O_WRONLY | O_NONBLOCK);
     fcntl(fd_in, F_SETFL, O_WRONLY);
+    ///////////
+    //sleep(5);
+    ///////////
+    char checkpoint = '!';
+    if (write(fd_in, &checkpoint, sizeof(char)) <= 0) {
+        printf ("write error, checkpoint hasn't been sent\n");
+        exit(EXIT_FAILURE);
+    }
 
     while ((splice_ret_val = splice(fd_from, NULL,
                                    fd_in, NULL,
