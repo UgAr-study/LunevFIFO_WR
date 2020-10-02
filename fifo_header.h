@@ -7,8 +7,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <memory.h>
-#include <sys/shm.h>
 #include <errno.h>
+#include <signal.h>
 
 char * GenerateFifoname (pid_t pid);
 int CheckPid (char* fifoname, pid_t pid);

@@ -18,13 +18,15 @@ int main(int argc, char* argv[]) {
     CreateFifo(send_pid_fifo, 0666);
 
     fd_receive_pid = OpenFile(send_pid_fifo, O_RDONLY);
-
+    sleep(5);
     int read_ret_val;
     if ((read_ret_val = read (fd_receive_pid, &key, sizeof(pid_t))) <= 0) {
         printf ("writer don't has a pair\n");
         close (fd_receive_pid);
         exit (EXIT_FAILURE);
     }
+
+    //sleep (3);
 
     text_fifo = GenerateFifoname(key);
     printf ("\n\n%d bytes are read;\nkey = %d;\nunique fifo name is: [%s]\n\n",

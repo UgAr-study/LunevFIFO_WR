@@ -79,6 +79,7 @@ int CheckSelect (int fdread, int fdwrite, int fdexe) {
     if (fdexe != -1)
         FD_SET(fdexe, &eset);
 
+    errno = 0;
     int sel = select (max + 1, &rset, &wset, &eset, &tv);
 
     if (sel <= 0) {

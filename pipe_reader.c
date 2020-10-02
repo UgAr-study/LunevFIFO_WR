@@ -17,10 +17,14 @@ int main() {
     CreateFifo(send_pid_fifo, 0666);
     fd_send_pid = OpenFile (send_pid_fifo, O_WRONLY);
 
+    //sleep (3);
     if (write (fd_send_pid, &curr_pid, sizeof(pid_t)) <= 0) {
         printf ("error of write\n");
         exit (EXIT_FAILURE);
     }
+
+    //sleep(3);
+
 
     int check_sp_fifo = CheckSelect(fd_from, -1, -1);
     if  (check_sp_fifo < 0) {
